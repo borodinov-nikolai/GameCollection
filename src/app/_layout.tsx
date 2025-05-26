@@ -1,18 +1,20 @@
+import "../shared/styles/global.css"
 import { Stack } from "expo-router";
-import "../../global.css"
 import { Navbar } from "../widgets/navbar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { globalStyles } from "../shared/styles/global";
+import { View } from "react-native";
 
 export default function RootLayout() {
   return (
-    <>
-      <Stack>
-        <Stack.Screen name='index' options={{ title: 'home' }} />
-        <Stack.Screen name='consoles/index' options={{ title: 'consoles' }} />
-        <Stack.Screen name='games/index' options={{ title: 'games' }} />
-        <Stack.Screen name='statistics/index' options={{ title: 'statistics' }} />
-        <Stack.Screen name='settings/index' options={{ title: 'settings' }} />
-      </Stack>
-      <Navbar/>
-    </>
+    <SafeAreaProvider style={globalStyles.safeArea} >
+      <View className={`flex-1`} >
+        <Stack screenOptions={{ headerShown: false }} >
+          <Stack.Screen name='(tabs)' />
+        </Stack>
+      </View>
+
+    </SafeAreaProvider>
+
   )
 }

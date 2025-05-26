@@ -1,15 +1,12 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import { Ionicons } from "@expo/vector-icons"
-import { Link, RelativePathString } from 'expo-router'
-import { useNavigationState } from '@react-navigation/native'
+import { Link, RelativePathString, usePathname, useRouter } from 'expo-router'
 
 
 export const Navbar = () => {
-  const state = useNavigationState((state)=> state)
-  let current = state.routes[state.index]?.name.split('/')[0]
-  current = current === 'index' ? '' : current
-
+ const pathname = usePathname()
+ const router = useRouter()
   type Tab = {
   id: number,
   title: string,
@@ -17,7 +14,6 @@ export const Navbar = () => {
   href: string
 }
 
-console.log(current)
 
   const tabs: Tab[] = [
     {
@@ -48,15 +44,16 @@ console.log(current)
   ]
 
   return (
-       <View style={{backgroundColor: 'orange'}} className={" px-[20px] flex-row h-[70px] w-full justify-around items-center border-t border-[#ddd] "} >
+       <View
+       className={" px-[20px] flex-row h-[85px] w-full justify-around border-t border-[#ddd] pt-[10px]"} >
       {
         tabs.map(({id, title, icon, href})=> (
-          <Link key={id} href={href as RelativePathString} >
-             <View className={`flex flex-col gap-1 items-center`} >   
-                   <Ionicons color={`/${current}` === href ? 'black' : '#fff'} name={icon} size={28} />
-                 <Text className={`text-[#fff]`} >{title}</Text>
+          <Pressable key={id} onPress={()=> router.push(href as RelativePathString)} >
+             <View className={`flex w-[75px] flex-col gap-1 items-center`} >   
+                   <Ionicons color={pathname === href ? 'black' : 'black'} name={icon} size={28} />
+                 <Text className={pathname === href ? `text-[black]` : `text-[#fff]`} >{title}</Text>
              </View>
-             </Link>
+             </Pressable>
         ))
       }
     </View>

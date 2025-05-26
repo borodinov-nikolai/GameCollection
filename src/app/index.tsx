@@ -1,8 +1,10 @@
 import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
+import { globalStyles } from "../shared/styles/global";
 
 export default function Index() {
   return (
+    <SafeAreaView style={globalStyles.safeArea} >
     <View
       style={{
         flex: 1,
@@ -11,7 +13,8 @@ export default function Index() {
       }}
     >
       <Text className={`text-[red]`} >Edit app/index.tsx to edit this screen.</Text>
-      <Link className={`underline text-[blue]`} href={'/about'}> Go to about screen</Link>
+      <Link className={`underline text-[blue]`} href={'/games'}> Go to games screen</Link>
     </View>
+    </SafeAreaView>
   );
 }
