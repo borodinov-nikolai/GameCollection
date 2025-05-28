@@ -10,7 +10,7 @@ type Props = {
 
 const Button: FC<Props> = ({children, className, ...props}) => {
   return (
-    <Pressable {...props} className={cs(`bg-blue-600 h-[50px] w-[200px] rounded-lg items-center justify-center`, className)} >
+    <Pressable {...props} className={cs(`bg-blue-600 h-[50px] w-max px-[20px] rounded-lg items-center justify-center`, className)} >
         <Text className={`text-[white] text-[20px]`} >{children}</Text>
     </Pressable>
   )
