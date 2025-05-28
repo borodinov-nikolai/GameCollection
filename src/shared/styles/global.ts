@@ -8,6 +8,6 @@ export const globalStyles = StyleSheet.create({
     },
     container: {
         padding: 10,
-        paddingTop: 50
+        paddingTop: 20
     }
 })

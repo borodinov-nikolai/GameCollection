@@ -65,7 +65,9 @@ export const GamesScreen = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (     
-              <Link href={ item.href ? `/(tabs)/games/${item.href}` as RelativePathString : '/games'} className={`bg-[gray] my-[25px] py-[50px] px-[20px] rounded-[10px] text-[28px]`} >{item.title}</Link>
+              <Link 
+              href={ item.href ? `/(tabs)/games/${item.href}` as RelativePathString : '/games'} 
+              className={`bg-[#000000b5] py-[15px] px-[20px] rounded-[10px] mt-[15px] text-[20px] text-[white]`} >{item.title}</Link>
             )}
           keyExtractor={item => item.id}  
         />
