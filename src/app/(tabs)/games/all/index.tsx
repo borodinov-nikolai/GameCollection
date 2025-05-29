@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getActionFromState, useIsFocused } from '@react-navigation/native'
 import { Link, useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, Pressable, SafeAreaView, View } from 'react-native'
+import { FlatList, GestureResponderEvent, Image, Pressable, SafeAreaView, Text, View } from 'react-native'
 
 
 const Category = () => {
@@ -26,11 +26,14 @@ const Category = () => {
     getData()
   }, [isFocused])
 
-  const onDelete = async (id: number)=> {
+  const onDelete = async (e: GestureResponderEvent, id: number)=> {
+      e.stopPropagation()
       const filteredGames = games.filter(item => item.id !== id)
       await AsyncStorage.setItem('savedGames', JSON.stringify(filteredGames))
       setGames(filteredGames)
   }
+
+ 
 
 
   return (
@@ -42,13 +45,13 @@ const Category = () => {
         <FlatList
           data={games}
           renderItem={({ item }) => (
-            <View className={`flex-row items-center gap-[20px] bg-[#80808024] h-[80px] rounded-lg mt-[20px] overflow-hidden pr-[20px]`} >
+            <Pressable onPress={()=> router.push(`/(tabs)/games/${item.id}`)} className={`flex-row items-center gap-[20px] bg-[#80808024] h-[80px] rounded-lg mt-[20px] overflow-hidden pr-[20px]`} >
               <Image source={{ uri: item.imageUri }} className={`w-[80px] h-[80px] rounded-lg`} />
-              <Link href={'/(tabs)/games'} >{item.name}</Link>
-              <Pressable onPress={()=> onDelete(item.id)} className={`ml-auto`} >
+              <Text >{item.name}</Text>
+              <Pressable onPress={(e)=> onDelete(e, item.id)} className={`ml-auto`} >
                 <Ionicons name='trash' size={20} />
               </Pressable>
-            </View>
+            </Pressable>
           )}
         />
       </View>
