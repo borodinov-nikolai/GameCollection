@@ -3,9 +3,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
 import { Image, SafeAreaView, Text, View } from 'react-native'
 import { Game } from '../../addGame'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useNavigation } from 'expo-router'
 
 export const GameScreen = () => {
+  const navigation = useNavigation()
   const [game, setGame] = useState<Game>()
   const {id} = useLocalSearchParams()
    
@@ -16,6 +17,11 @@ export const GameScreen = () => {
         const games: Game[] = JSON.parse(dataString)
         const game = games.find((item)=> item.id === +id)
         setGame(game)
+        if(game?.name) {
+          navigation.setOptions({
+          title: game.name
+        })
+        }
       }
     }
 
